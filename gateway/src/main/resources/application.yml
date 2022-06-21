@@ -1,0 +1,24 @@
+server:
+  port: 8000
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      routes:
+        - id: product-service
+          uri:
+            http://localhost:8001/
+          predicates:
+            - Path=/product/dto/**
+        - id: auth
+          uri:
+            http://localhost:8081/
+          predicates:
+            - Path=/auth/user**
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8888/eureka
