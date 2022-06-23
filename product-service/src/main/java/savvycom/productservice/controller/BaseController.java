@@ -1,2 +1,4 @@
-package savvycom.productservice.controller;public class BaseController {
+package savvycom.productservice.controller;
+
+public class BaseController {
 }
