@@ -1,36 +1,38 @@
 package savvycom.productservice.service.impl;
+//@Service hold the business handling code in it
 
 import org.springframework.stereotype.Service;
 import savvycom.productservice.domain.entity.product.Category;
-import savvycom.productservice.repository.product.ProductCategoryRepository;
-import savvycom.productservice.service.product.IProductCategoryService;
+import savvycom.productservice.repository.product.CategoryRepository;
+import savvycom.productservice.service.product.ICategoryService;
 
 import java.util.List;
 
 @Service
-public class ProductCategoryService implements IProductCategoryService {
-    private final ProductCategoryRepository productCategoryRepository;
+public class CategoryService implements ICategoryService {
+    private final CategoryRepository categoryRepository;
 
-    public ProductCategoryService(ProductCategoryRepository productCategoryRepository) {
-        this.productCategoryRepository = productCategoryRepository;
+    public CategoryService(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
     }
 
     @Override
     public Category save(Category category) {
-        return productCategoryRepository.save(category);
+        return categoryRepository.save(category);
     }
 
     @Override
     public void delete(Long id) {
-        productCategoryRepository.deleteById(id);
+        categoryRepository.deleteById(id);
     }
 
     @Override
     public List<Category> findAll() {
-        return (List<Category>) productCategoryRepository.findAll();
+        return (List<Category>) categoryRepository.findAll();
     }
+
     @Override
-    public Category findById(long id) {
-        return (Category) productCategoryRepository.findById(id).orElse(null);
+    public Category findById(Long id) {
+        return (Category) categoryRepository.findById(id).orElse(null);
     }
 }

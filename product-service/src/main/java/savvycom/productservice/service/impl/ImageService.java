@@ -1,4 +1,5 @@
 package savvycom.productservice.service.impl;
+//@Service hold the business handling code in it
 
 import org.springframework.stereotype.Service;
 import savvycom.productservice.domain.entity.Image;
@@ -26,15 +27,17 @@ public class ImageService implements IImageService {
 
     @Override
     public List<Image> findAll() {
-        return (List<Image>) imageRepository.findAll();
-    }
-    @Override
-    public Image findById(long id) {
-        return (Image) imageRepository.findById(id).orElse(null);
+        return imageRepository.findAll();
     }
 
     @Override
-    public Image findByProductId(int product_id) {
-        return (Image) imageRepository.findByProductId(product_id).orElse(null);
+    public Image findById(Long id) {
+        return imageRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public List<Image> findByProductId(Long productId) {
+        return imageRepository.findByProductId(productId);
+    }
+
 }

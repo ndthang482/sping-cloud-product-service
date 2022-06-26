@@ -11,6 +11,9 @@ public interface IReviewService {
 
     List<Review> findAll();
 
-    Review findById(long id);
+    Review findById(Long id);
 
+    List<Review> findReviewByProductId(Long product_id);
+
+    List<Review> findReviewUserId(Long user_id);
 }

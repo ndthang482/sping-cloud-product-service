@@ -38,7 +38,7 @@
 //    @Override
 //    public void configure(HttpSecurity http) throws Exception {
 //        http.authorizeRequests()
-//                .antMatchers("/api/users/test").permitAll()
+////                .antMatchers("/users/test").permitAll()
 //                .anyRequest().authenticated();
 //    }
 //}

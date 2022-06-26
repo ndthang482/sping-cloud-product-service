@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.security.Timestamp;
+import java.sql.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -13,7 +13,7 @@ import java.security.Timestamp;
 
 @Entity
 @Table(name="category")
-public class ProductCategory {
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
@@ -23,8 +23,8 @@ public class ProductCategory {
 
     private String desc;
 
-    private Timestamp createdAt;
+    private Date createdAt;
 
-    private Timestamp modifiedAt;
+    private Date modifiedAt;
 
 }

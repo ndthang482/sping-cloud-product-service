@@ -1,48 +1,301 @@
 package savvycom.productservice.service.impl;
+//@Service hold the business handling code in it
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import savvycom.productservice.domain.dto.ProductDTO;
 import savvycom.productservice.domain.entity.product.Product;
+import savvycom.productservice.domain.model.ProductOutput;
 import savvycom.productservice.repository.product.ProductRepository;
+import savvycom.productservice.service.IImageService;
+import savvycom.productservice.service.product.IProductLineService;
 import savvycom.productservice.service.product.IProductService;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
+//class ProductService implements to interface IProductService
+//bắt buộc rằng productService phải override all interface IProductService
 
 @Service
 public class ProductService implements IProductService {
+    @Autowired
     private ProductRepository productRepository;
+
+    //nâng cấp của bean(khi không biết nó có chứa cái kia hay cái kia chứa nó)
+    @Autowired
+    private IImageService imageService;
+
+    @Autowired
+    private IProductLineService productLineService;
 
     public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
 
+    //Override: ghi đè phương thức(nếu lớp con có phương thức giống lớp cha)
     @Override
     public Product save(Product product) {
         return productRepository.save(product);
     }
 
-
+    //delete set(active)
     @Override
     public void delete(Long id) {
         Product product= productRepository.findById(id).orElse(null);
         if(product != null){
-            product.setActive(0);
+            product.setActive(0L);
             save(product);
         }
 
     }
 
+    //find id by product
+    //Override: ghi đè phương thức (khi interface business service bắt buộc phải ovverride trong class)
+
     @Override
-    public List<Product> findAll() {
-        return (List<Product>) productRepository.findAll();
+    public Product findById(Long id) {
+        return productRepository.findById(id).orElse(null);
     }
-    @Override
-    public Product findById(long id) {
-        return (Product) productRepository.findById(id).orElse(null);
-    }
+
+
+    //find display id, price in Product to ProductDTO
+
     @Override
     public List<ProductDTO> findProductDTOById(Long id){
         return productRepository.findById(id).stream().map(ProductDTO::new).collect(Collectors.toList());
     }
+
+    //find all line by product
+
+    @Override
+    public List<ProductOutput> findProductByProductLine(Long productLineId) {
+        return productRepository.findAll().stream()
+                .map(product -> ProductOutput.builder()
+                        .id(product.getId())
+                        .color(product.getColor())
+                        .size(product.getSize())
+                        .productLineId(product.getProductLineId())
+                        .price(product.getPrice())
+                        .discountId(product.getDiscountId())
+                        .active(product.getActive())
+                        .images(imageService.findByProductId(product.getId()))
+                        .created_at(product.getCreatedAt())
+                        .modified_at(product.getModifiedAt())
+                        .build())
+                .filter(product -> product.getProductLineId() == productLineId)
+                .collect(Collectors.toList());
+    }
+
+
+    //productOutput được dựng lên và trả về Id của từng productOutput
+    @Override
+    public ProductOutput findProductOutputById(Long id) {
+        Product product = productRepository.findById(id).orElse(null);
+        return ProductOutput.builder()
+                .id(product.getId())
+                .color(product.getColor())
+                .size(product.getSize())
+                .productLineId(product.getProductLineId())
+                .price(product.getPrice())
+                .discountId(product.getDiscountId())
+                .active(product.getActive())
+                .images(imageService.findByProductId(product.getId()))
+                .created_at(product.getCreatedAt())
+                .modified_at(product.getModifiedAt())
+                .build();
+    }
+
+    //map productOutputById find all productOutput (ProductImage)
+    @Override
+    public List<ProductOutput> findAll() {
+        return productRepository.findAll().stream()
+                .map(product ->ProductOutput.builder()
+                        .id(product.getId())
+                        .color(product.getColor())
+                        .size(product.getSize())
+                        .productLineId(product.getProductLineId())
+                        .price(product.getPrice())
+                        .discountId(product.getDiscountId())
+                        .active(product.getActive())
+                        .images(imageService.findByProductId(product.getId()))
+                        .created_at(product.getCreatedAt())
+                        .modified_at(product.getModifiedAt())
+                        .build()).collect(Collectors.toList());
+    }
+    @Override
+    public List<Product> findByPriceLess1M(BigDecimal price) {
+        return productRepository.findByPriceLess1M(price);
+    }
+    @Override
+    public List<ProductOutput> findProductPriceLess1M(BigDecimal price) {
+        return productRepository.findAll().stream()
+                .map(product -> ProductOutput.builder()
+                        .id(product.getId())
+                        .color(product.getColor())
+                        .size(product.getSize())
+                        .productLineId(product.getProductLineId())
+                        .price(product.getPrice())
+                        .discountId(product.getDiscountId())
+                        .active(product.getActive())
+                        .images(imageService.findByProductId(product.getId()))
+                        .created_at(product.getCreatedAt())
+                        .modified_at(product.getModifiedAt())
+                        .build())
+                .filter(product -> product.getPrice() == price)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Product> findByPriceLess3M(BigDecimal price) {
+        return productRepository.findByPriceLess3M(price);
+    }
+    @Override
+    public List<ProductOutput> findByPriceBetween1And3M(BigDecimal price) {
+        return productRepository.findAll().stream()
+                .map(product -> ProductOutput.builder()
+                        .id(product.getId())
+                        .color(product.getColor())
+                        .size(product.getSize())
+                        .productLineId(product.getProductLineId())
+                        .price(product.getPrice())
+                        .discountId(product.getDiscountId())
+                        .active(product.getActive())
+                        .images(imageService.findByProductId(product.getId()))
+                        .created_at(product.getCreatedAt())
+                        .modified_at(product.getModifiedAt())
+                        .build())
+                .filter(product -> product.getPrice() == price)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Product> findByPriceAbove3M(BigDecimal price) {
+        return productRepository.findByPriceAbove3M(price);
+    }
+
+    @Override
+    public List<ProductOutput> findByPriceAbove3Million(BigDecimal price) {
+        return productRepository.findAll().stream()
+                .map(product -> ProductOutput.builder()
+                        .id(product.getId())
+                        .color(product.getColor())
+                        .size(product.getSize())
+                        .productLineId(product.getProductLineId())
+                        .price(product.getPrice())
+                        .discountId(product.getDiscountId())
+                        .active(product.getActive())
+                        .images(imageService.findByProductId(product.getId()))
+                        .created_at(product.getCreatedAt())
+                        .modified_at(product.getModifiedAt())
+                        .build())
+                .filter(product -> product.getPrice() == price)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProductOutput> findColorByProductDTO(String color){
+        return productRepository.findAll().stream()
+                .map(product -> ProductOutput.builder()
+                        .id(product.getId())
+                        .color(product.getColor())
+                        .size(product.getSize())
+                        .productLineId(product.getProductLineId())
+                        .price(product.getPrice())
+                        .discountId(product.getDiscountId())
+                        .active(product.getActive())
+                        .images(imageService.findByProductId(product.getId()))
+                        .created_at(product.getCreatedAt())
+                        .modified_at(product.getModifiedAt())
+                        .build())
+                .filter(product -> product.getColor() == color)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Product> findProductByColor(String color) {
+        return productRepository.findProductByColor(color);
+    }
+
+    @Override
+    public List<Product> findProductBySize(String size) {
+        return productRepository.findProductBySize(size);
+    }
+
+    @Override
+    public List<ProductOutput> findSizeByProductDTO(String size) {
+        return productRepository.findAll().stream()
+                .map(product -> ProductOutput.builder()
+                        .id(product.getId())
+                        .color(product.getColor())
+                        .size(product.getSize())
+                        .productLineId(product.getProductLineId())
+                        .price(product.getPrice())
+                        .discountId(product.getDiscountId())
+                        .active(product.getActive())
+                        .images(imageService.findByProductId(product.getId()))
+                        .created_at(product.getCreatedAt())
+                        .modified_at(product.getModifiedAt())
+                        .build())
+                .filter(product -> product.getSize()== size)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProductOutput> findByDiscountUnder30(Long discountId) {
+        return productRepository.findAll().stream()
+                .map(product -> ProductOutput.builder()
+                        .id(product.getId())
+                        .color(product.getColor())
+                        .size(product.getSize())
+                        .productLineId(product.getProductLineId())
+                        .price(product.getPrice())
+                        .discountId(product.getDiscountId())
+                        .active(product.getActive())
+                        .images(imageService.findByProductId(product.getId()))
+                        .created_at(product.getCreatedAt())
+                        .modified_at(product.getModifiedAt())
+                        .build())
+                .filter(product -> product.getDiscountId()== discountId)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProductOutput> findByDiscount30to50(Long discountId) {
+        return productRepository.findAll().stream()
+                .map(product -> ProductOutput.builder()
+                        .id(product.getId())
+                        .color(product.getColor())
+                        .size(product.getSize())
+                        .productLineId(product.getProductLineId())
+                        .price(product.getPrice())
+                        .discountId(product.getDiscountId())
+                        .active(product.getActive())
+                        .images(imageService.findByProductId(product.getId()))
+                        .created_at(product.getCreatedAt())
+                        .modified_at(product.getModifiedAt())
+                        .build())
+                .filter(product -> product.getDiscountId()== discountId)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProductOutput> findByDiscountAbove50(Long discountId) {
+        return productRepository.findAll().stream()
+                .map(product -> ProductOutput.builder()
+                        .id(product.getId())
+                        .color(product.getColor())
+                        .size(product.getSize())
+                        .productLineId(product.getProductLineId())
+                        .price(product.getPrice())
+                        .discountId(product.getDiscountId())
+                        .active(product.getActive())
+                        .images(imageService.findByProductId(product.getId()))
+                        .created_at(product.getCreatedAt())
+                        .modified_at(product.getModifiedAt())
+                        .build())
+                .filter(product -> product.getDiscountId()== discountId)
+                .collect(Collectors.toList());
+    }
+
 }

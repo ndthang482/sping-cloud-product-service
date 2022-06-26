@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.security.Timestamp;
+import java.sql.Date;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -25,11 +27,11 @@ public class Address {
 
     private String ward;
 
-    private String specific_address;
+    private String specificAddress;
 
     private String phone;
 
-   private Timestamp created_at;
+   private Date createdAt;
 
-   private Timestamp modified_at;
+   private Date modifiedAt;
 }

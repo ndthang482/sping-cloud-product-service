@@ -11,5 +11,10 @@ public interface IDiscountService {
 
     List<Discount> findAll();
 
-    Discount findById(long id);
+    Discount findById(Long id);
+
+    List<Discount> findByDiscountUnder30(String discountPercent);
+
+    List<Discount> findByDiscount30to50(String discountPercent);
+    List<Discount> findByDiscountAbove50(String discountPercent);
 }

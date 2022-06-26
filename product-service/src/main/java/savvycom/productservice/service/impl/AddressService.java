@@ -1,5 +1,5 @@
 package savvycom.productservice.service.impl;
-
+//@Service hold the business handling code in it
 import org.springframework.stereotype.Service;
 import savvycom.productservice.domain.entity.Address;
 import savvycom.productservice.repository.AddressRepository;
@@ -28,8 +28,9 @@ public class AddressService implements IAddressService {
     public List<Address> findAll() {
         return (List<Address>) addressRepository.findAll();
     }
+
     @Override
-    public Address findById(long id) {
+    public Address findById(Long id) {
         return (Address) addressRepository.findById(id).orElse(null);
     }
 }

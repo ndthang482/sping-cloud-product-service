@@ -1,13 +1,16 @@
 package savvycom.productservice.repository.product;
-
+// @Repo access database, class click database.
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import savvycom.productservice.domain.entity.product.ProductLine;
 
+import java.util.List;
 import java.util.Optional;
 @Repository
 public interface ProductLineRepository extends JpaRepository<ProductLine, Long> {
-    @Query(value = "SELECT * FROM product_line WHERE id=?1", nativeQuery = true)
+    List<ProductLine> findByNameLike(String name);
     Optional<ProductLine> findById(Long id);
+
+
 }

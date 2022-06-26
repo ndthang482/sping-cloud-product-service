@@ -6,7 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.sql.Date;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -23,12 +24,12 @@ public class Discount {
 
     private String desc;
 
-    private String discount_percent;
+    private String discountPercent;
 
-    private int active;
+    private Long active;
 
-    private Timestamp created_at;
+    private Date createdAt;
 
-    private Timestamp modified_at;
+    private Date modifiedAt;
 
 }

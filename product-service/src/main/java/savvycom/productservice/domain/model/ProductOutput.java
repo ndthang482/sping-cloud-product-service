@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import savvycom.productservice.domain.entity.Image;
 
-import java.security.Timestamp;
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.List;
 
@@ -17,18 +17,21 @@ import java.util.List;
 public class ProductOutput {
     private Long id;
 
-    private String optional;
+    private String color;
 
-    private int product_line_id;
+    private String size;
 
-    private double price;
+    private Long productLineId;
 
-    private int active;
+    private BigDecimal price;
+
+    private Long discountId;
+
+    private Long active;
 
     private List<Image> images;
 
     private Date created_at;
 
     private Date modified_at;
-
 }

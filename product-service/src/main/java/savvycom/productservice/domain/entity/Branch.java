@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.security.Timestamp;
+import java.sql.Date;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -19,9 +21,9 @@ public class Branch {
 
     private String name;
 
-    private String address_id;
+    private Long addressId;
 
-    private Timestamp created_at;
+    private Date createdAt;
 
-    private Timestamp modified_at;
+    private Date modifiedAt;
 }

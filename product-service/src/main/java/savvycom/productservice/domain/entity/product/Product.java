@@ -5,7 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.security.Timestamp;
+import java.sql.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,17 +23,20 @@ public class Product {
 
     private Long id;
 
-    private String optional;
+    private String color;
 
-    private int product_line_id;
+    private String size;
+
+    private Long productLineId;
     
-    private double price;
+    private BigDecimal price;
 
-    private int active;
+    private Long discountId;
 
-    private Timestamp created_at;
+    private Long active;
 
-    private Timestamp modified_at;
+    private Date createdAt;
 
+    private Date modifiedAt;
 
 }

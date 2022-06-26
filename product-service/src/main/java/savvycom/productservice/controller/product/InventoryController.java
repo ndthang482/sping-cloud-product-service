@@ -1,37 +1,64 @@
 package savvycom.productservice.controller.product;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import savvycom.productservice.controller.BaseController;
 import savvycom.productservice.domain.entity.product.Inventory;
-import savvycom.productservice.service.product.IProductInventoryService;
+import savvycom.productservice.service.product.IInventoryService;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/inventory")
-public class ProductInventoryController {
-    private IProductInventoryService productInventoryService;
-
+public class InventoryController extends BaseController {
+    private IInventoryService inventoryService;
     @Autowired
-    public ProductInventoryController(IProductInventoryService ProductInventoryService) {
-        this.productInventoryService = ProductInventoryService;
+    public InventoryController(IInventoryService InventoryService) {
+        this.inventoryService = InventoryService;
     }
+
+    //find all ịnventory
 
     @GetMapping("")
-    public List<Inventory> findAll() {
-        return productInventoryService.findAll();
-    }
-    @PostMapping("")
-    public Inventory newInventory(@RequestBody Inventory inventory){
-        return productInventoryService.save(inventory);
+    public ResponseEntity<?> findAll() {
+        return successResponse(inventoryService.findAll());
     }
 
-    @GetMapping("/{id}")
-    public Inventory findById(@PathVariable long id) {
-        return productInventoryService.findById(id);
+    //Pos create a create inventory
+
+    @PostMapping("")
+    public ResponseEntity<?> newInventory(@RequestBody Inventory inventory){
+        return successResponse(inventoryService.save(inventory));
     }
+
+    //find id by inventory
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findById(@PathVariable Long id) {
+        return successResponse(inventoryService.findById(id));
+    }
+
+    //Put: update inventory
+
     @PutMapping("{id}")
-    public Inventory updateInventory(@RequestBody Inventory inventory){
-        return productInventoryService.save(inventory);
+    public ResponseEntity<?> updateInventory(@RequestBody Inventory inventory){
+        return successResponse(inventoryService.save(inventory));
+    }
+
+    //find all branch by inventory
+
+    @GetMapping("/branch/{id}")
+    public ResponseEntity<?> findAllBranchByInventory(@PathVariable("id") Long id){
+        return successResponse(inventoryService.fineAllBranchByInventory(id));
+    }
+
+    //find all product by inventory
+
+    @GetMapping("/product/{id}")
+    public ResponseEntity<?> findAllProductByInventory(@PathVariable("id") Long id){
+        return successResponse(inventoryService.findAllProductByInventory(id));
     }
 }

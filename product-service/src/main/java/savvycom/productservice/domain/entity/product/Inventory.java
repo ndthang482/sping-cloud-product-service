@@ -4,27 +4,28 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.security.Timestamp;
+import java.sql.Date;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 
 @Entity
 @Table(name ="inventory")
-public class ProductInventory {
+public class Inventory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long id;
 
-    private int branchId;
+    private Long branchId;
 
-    private int productId;
+    private Long productId;
 
-    private int quantity;
+    private Long quantity;
 
-    private Timestamp createdAt;
+    private Date createdAt;
 
-    private Timestamp modifiedAt;
+    private Date modifiedAt;
 
 }

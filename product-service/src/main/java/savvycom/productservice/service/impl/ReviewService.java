@@ -1,4 +1,5 @@
 package savvycom.productservice.service.impl;
+//@Service hold the business handling code in it
 
 import org.springframework.stereotype.Service;
 import savvycom.productservice.domain.entity.Review;
@@ -6,6 +7,7 @@ import savvycom.productservice.repository.ReviewRepository;
 import savvycom.productservice.service.IReviewService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ReviewService implements IReviewService {
@@ -31,9 +33,21 @@ public class ReviewService implements IReviewService {
     }
 
     @Override
-    public Review findById(long id) {
+    public Review findById(Long id) {
         return (Review) reviewRepository.findById(id).orElse(null);
     }
 
+    @Override
+    public List<Review> findReviewByProductId(Long productId) {
+        return reviewRepository.findAll().stream()
+                .filter(review -> review.getProductId() == productId)
+                .collect(Collectors.toList());
+    }
 
+    @Override
+    public List<Review> findReviewUserId(Long userId) {
+        return reviewRepository.findAll().stream()
+                .filter(review -> review.getUserId() == userId)
+                .collect(Collectors.toList());
+    }
 }

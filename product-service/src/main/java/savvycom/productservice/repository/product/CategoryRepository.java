@@ -1,4 +1,5 @@
 package savvycom.productservice.repository.product;
+// @Repo access database, class click database.
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -7,8 +8,6 @@ import savvycom.productservice.domain.entity.product.Category;
 
 import java.util.Optional;
 @Repository
-public interface ProductCategoryRepository extends JpaRepository<Category,Long> {
-    @Query(value = "SELECT * FROM product_category WHERE id=?1", nativeQuery = true)
-
+public interface CategoryRepository extends JpaRepository<Category,Long> {
     Optional<Category> findById(Long id);
 }

@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.security.Timestamp;
+import java.sql.Date;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -22,15 +24,13 @@ public class ProductLine {
 
     private String desc;
 
-    private int category_id;
+    private Long categoryId;
 
-    private int discount_id;
+    private Long active;
 
-    private int active;
+    private Date createdAt;
 
-    private Timestamp created_at;
-
-    private Timestamp modified_at;
+    private Date modifiedAt;
 
 
 }

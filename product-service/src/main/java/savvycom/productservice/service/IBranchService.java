@@ -1,6 +1,8 @@
 package savvycom.productservice.service;
 
 import savvycom.productservice.domain.entity.Branch;
+import savvycom.productservice.domain.entity.product.Category;
+import savvycom.productservice.domain.entity.product.Inventory;
 
 import java.util.List;
 
@@ -11,5 +13,5 @@ public interface IBranchService {
 
     List<Branch> findAll();
 
-    Branch findById(long id);
+    Branch findById(Long id);
 }

@@ -1,4 +1,5 @@
 package savvycom.productservice.repository;
+// @Repo access database, class click database.
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -8,6 +9,5 @@ import savvycom.productservice.domain.entity.Address;
 import java.util.Optional;
 @Repository
 public interface AddressRepository extends JpaRepository<Address, Long> {
-    @Query(value = "SELECT * FROM address WHERE id=?1", nativeQuery = true)
     Optional<Address> findById(Long id);
 }

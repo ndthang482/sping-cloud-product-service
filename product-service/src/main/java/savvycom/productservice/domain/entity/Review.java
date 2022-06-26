@@ -3,11 +3,8 @@ package savvycom.productservice.domain.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.bouncycastle.util.Times;
-import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
-import java.security.Timestamp;
+import java.sql.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,15 +15,15 @@ public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int user_id;
+    private Long userId;
 
-    private int product_id;
+    private Long productId;
 
-    private int rate;
+    private Long rate;
 
     private String content;
 
-    private Timestamp created_at;
+    private Date createdAt;
 
-    private Timestamp modified_at;
+    private Date modifiedAt;
 }

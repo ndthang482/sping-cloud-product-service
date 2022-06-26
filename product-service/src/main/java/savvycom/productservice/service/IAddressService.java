@@ -11,5 +11,5 @@ public interface IAddressService {
 
     List<Address> findAll();
 
-    Address findById(long id);
+    Address findById(Long id);
 }

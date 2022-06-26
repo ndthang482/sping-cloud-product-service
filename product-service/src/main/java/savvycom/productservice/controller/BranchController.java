@@ -1,29 +1,49 @@
 package savvycom.productservice.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import savvycom.productservice.domain.entity.Branch;
+import savvycom.productservice.domain.entity.product.Category;
+import savvycom.productservice.domain.entity.product.Inventory;
 import savvycom.productservice.service.IBranchService;
 
 import java.util.List;
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/branch")
-public class BranchController {
+public class BranchController extends BaseController{
     private IBranchService branchService;
 
     @Autowired
     public BranchController(IBranchService BranchService){
         this.branchService=BranchService;
     }
+
+    //find all branch
+
     @GetMapping("")
-    public List<Branch> findAll() {
-        return branchService.findAll();
+    public ResponseEntity<?> findAll(){
+        return successResponse(branchService.findAll());
     }
+
+    //pos: create newbranch
+
+    @PostMapping("")
+    public ResponseEntity<?> newBranch(@RequestBody Branch branch){
+        return successResponse(branchService.save(branch));
+    }
+
+    //find id by branch
     @GetMapping("/{id}")
-    public Branch findById(@PathVariable long id) {
-        return branchService.findById(id);
+    public ResponseEntity<?> findById(@PathVariable Long id) {
+        return successResponse(branchService.findById(id));
+    }
+
+    //put: update branch
+    @PutMapping("{id}")
+    public ResponseEntity<?> updateBranch(@RequestBody Branch branch){
+        return successResponse(branchService.save(branch));
     }
 }

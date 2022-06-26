@@ -1,4 +1,5 @@
 package savvycom.productservice.repository;
+// @Repo access database, class click database.
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -11,7 +12,6 @@ import java.util.Optional;
 
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Long>{
-    @Query(value = "SELECT * FROM review WHERE id=?1", nativeQuery = true)
     Optional<Review> findById(Long id);
 
 }

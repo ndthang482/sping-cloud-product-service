@@ -11,7 +11,8 @@ public interface IImageService {
 
     List<Image> findAll();
 
-    Image findById(long id);
+    Image findById(Long id);
 
-    Image findByProductId(int product_id);
+    List<Image> findByProductId(Long productId);
+
 }
