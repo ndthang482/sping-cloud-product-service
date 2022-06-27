@@ -1,4 +1,4 @@
-package savvycom.productservice.domain.entity;
+package savvycom.productservice.domain.model.entity;
 
 
 import lombok.AllArgsConstructor;

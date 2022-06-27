@@ -1,6 +1,6 @@
 package savvycom.productservice.service.product;
 //handle bussiness
-import savvycom.productservice.domain.entity.product.Category;
+import savvycom.productservice.domain.model.entity.product.Category;
 
 import java.util.List;
 

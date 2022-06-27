@@ -5,10 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import savvycom.productservice.controller.BaseController;
-import savvycom.productservice.domain.entity.product.Inventory;
+import savvycom.productservice.domain.model.entity.product.Inventory;
 import savvycom.productservice.service.product.IInventoryService;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor

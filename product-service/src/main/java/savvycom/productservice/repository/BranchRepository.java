@@ -2,9 +2,8 @@ package savvycom.productservice.repository;
 // @Repo access database, class click database.
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import savvycom.productservice.domain.entity.Branch;
+import savvycom.productservice.domain.model.entity.Branch;
 
 import java.util.Optional;
 

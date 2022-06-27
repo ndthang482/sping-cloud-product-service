@@ -1,6 +1,6 @@
 package savvycom.productservice.service;
 
-import savvycom.productservice.domain.entity.Address;
+import savvycom.productservice.domain.model.entity.Address;
 
 import java.util.List;
 

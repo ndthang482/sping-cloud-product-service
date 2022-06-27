@@ -1,6 +1,6 @@
 package savvycom.productservice.service.product;
 
-import savvycom.productservice.domain.entity.product.Inventory;
+import savvycom.productservice.domain.model.entity.product.Inventory;
 
 import java.util.List;
 

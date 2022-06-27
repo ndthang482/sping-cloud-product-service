@@ -1,6 +1,8 @@
 package savvycom.productservice.service;
 
-import savvycom.productservice.domain.entity.Image;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import savvycom.productservice.domain.model.entity.Image;
 
 import java.util.List;
 
@@ -9,7 +11,7 @@ public interface IImageService {
 
     void delete(Long id);
 
-    List<Image> findAll();
+    Page<Image> findAll(Pageable pageable);
 
     Image findById(Long id);
 

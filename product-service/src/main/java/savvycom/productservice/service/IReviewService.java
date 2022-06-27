@@ -1,6 +1,6 @@
 package savvycom.productservice.service;
 
-import savvycom.productservice.domain.entity.Review;
+import savvycom.productservice.domain.model.entity.Review;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package savvycom.productservice.domain.entity.product;
+package savvycom.productservice.domain.model.entity;
 
 
 import lombok.AllArgsConstructor;
@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.security.Timestamp;
 import java.sql.Date;
 
 @NoArgsConstructor
@@ -14,23 +13,23 @@ import java.sql.Date;
 @Data
 
 @Entity
-@Table(name="product_line")
-public class ProductLine {
+@Table(name="discount")
+public class Discount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
 
     private String name;
 
     private String desc;
 
-    private Long categoryId;
+    private String discountPercent;
 
     private Long active;
 
     private Date createdAt;
 
     private Date modifiedAt;
-
 
 }

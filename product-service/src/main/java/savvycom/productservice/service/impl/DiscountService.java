@@ -3,7 +3,7 @@ package savvycom.productservice.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import savvycom.productservice.domain.entity.Discount;
+import savvycom.productservice.domain.model.entity.Discount;
 import savvycom.productservice.repository.DiscountRepository;
 import savvycom.productservice.service.IDiscountService;
 

@@ -1,7 +1,7 @@
 package savvycom.productservice.service.impl;
 //@Service hold the business handling code in it
 import org.springframework.stereotype.Service;
-import savvycom.productservice.domain.entity.Address;
+import savvycom.productservice.domain.model.entity.Address;
 import savvycom.productservice.repository.AddressRepository;
 import savvycom.productservice.service.IAddressService;
 

@@ -1,11 +1,10 @@
-package savvycom.productservice.domain.entity;
-
-
+package savvycom.productservice.domain.model.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.security.Timestamp;
 import java.sql.Date;
 
 @NoArgsConstructor
@@ -13,8 +12,8 @@ import java.sql.Date;
 @Data
 
 @Entity
-@Table(name="discount")
-public class Discount {
+@Table(name="branch")
+public class Branch {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
@@ -22,14 +21,9 @@ public class Discount {
 
     private String name;
 
-    private String desc;
-
-    private String discountPercent;
-
-    private Long active;
+    private Long addressId;
 
     private Date createdAt;
 
     private Date modifiedAt;
-
 }

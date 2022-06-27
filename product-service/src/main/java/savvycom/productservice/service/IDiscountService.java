@@ -1,6 +1,6 @@
 package savvycom.productservice.service;
 
-import savvycom.productservice.domain.entity.Discount;
+import savvycom.productservice.domain.model.entity.Discount;
 
 import java.util.List;
 

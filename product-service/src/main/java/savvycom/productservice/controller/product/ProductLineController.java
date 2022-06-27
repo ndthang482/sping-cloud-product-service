@@ -6,13 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import savvycom.productservice.controller.BaseController;
-import savvycom.productservice.domain.entity.product.Product;
-import savvycom.productservice.domain.entity.product.ProductLine;
+import savvycom.productservice.domain.model.entity.product.ProductLine;
 import savvycom.productservice.service.product.IProductLineService;
 import savvycom.productservice.service.product.IProductService;
-
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor

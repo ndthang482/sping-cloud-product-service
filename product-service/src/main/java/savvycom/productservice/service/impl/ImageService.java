@@ -1,8 +1,10 @@
 package savvycom.productservice.service.impl;
 //@Service hold the business handling code in it
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import savvycom.productservice.domain.entity.Image;
+import savvycom.productservice.domain.model.entity.Image;
 import savvycom.productservice.repository.ImageRepository;
 import savvycom.productservice.service.IImageService;
 
@@ -26,8 +28,8 @@ public class ImageService implements IImageService {
     }
 
     @Override
-    public List<Image> findAll() {
-        return imageRepository.findAll();
+    public Page<Image> findAll(Pageable pageable) {
+        return imageRepository.findAll(pageable);
     }
 
     @Override

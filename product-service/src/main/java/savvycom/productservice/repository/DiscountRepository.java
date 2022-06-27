@@ -4,7 +4,7 @@ package savvycom.productservice.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import savvycom.productservice.domain.entity.Discount;
+import savvycom.productservice.domain.model.entity.Discount;
 
 import java.util.List;
 import java.util.Optional;

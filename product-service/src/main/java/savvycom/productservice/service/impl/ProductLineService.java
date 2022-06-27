@@ -1,8 +1,11 @@
 package savvycom.productservice.service.impl;
 //@Service hold the business handling code in it
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import savvycom.productservice.domain.entity.product.ProductLine;
+import savvycom.productservice.domain.model.entity.product.ProductLine;
 import savvycom.productservice.repository.product.ProductLineRepository;
 import savvycom.productservice.service.product.IProductLineService;
 
@@ -53,8 +56,8 @@ public class ProductLineService implements IProductLineService {
 
     @Override
     public List<ProductLine> findByNameLike(String name) {
+
         return productLineRepository.findByNameLike(name);
     }
-
 
 }

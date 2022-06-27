@@ -5,11 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import savvycom.productservice.domain.entity.Review;
+import savvycom.productservice.domain.model.entity.Review;
 import savvycom.productservice.repository.ReviewRepository;
 import savvycom.productservice.service.IReviewService;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor

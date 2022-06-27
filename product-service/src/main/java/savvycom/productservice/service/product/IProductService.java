@@ -1,8 +1,10 @@
 package savvycom.productservice.service.product;
 
-import savvycom.productservice.domain.dto.ProductDTO;
-import savvycom.productservice.domain.entity.product.Product;
-import savvycom.productservice.domain.model.ProductOutput;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import savvycom.productservice.domain.model.dto.ProductResponse;
+import savvycom.productservice.domain.model.entity.product.Product;
+import savvycom.productservice.domain.model.dto.ProductOutput;
 
 import java.math.BigDecimal;
 import java.util.Collection;
@@ -13,13 +15,13 @@ public interface IProductService {
     void delete(Long id);
     Product findById(Long id);
 
-    List<ProductDTO> findProductDTOById(Long id);
+//    List<ProductDTO> findProductDTOById(Long id);
 
-    List<ProductOutput> findProductByProductLine(Long productLineId);
+   List<ProductOutput> findProductByProductLine(Long productLineId);
 
     ProductOutput findProductOutputById(Long id);
 
-    List<ProductOutput> findAll();
+//    Page<ProductOutput> findAll();
 
     //price
     List<Product> findByPriceLess1M(BigDecimal price);
@@ -44,6 +46,11 @@ public interface IProductService {
     List<ProductOutput> findByDiscount30to50(Long discountId);
 
     List<ProductOutput> findByDiscountAbove50(Long discountId);
+
+    ProductResponse findAllResponse(int pageNo, int pageSize, String sortBy, String sortDir);
+
+    ProductResponse findAllByProductLineIds(List<Long> productLineIds, int pageNo, int pageSize, String sortBy, String sortDir );
+
 }
 
 

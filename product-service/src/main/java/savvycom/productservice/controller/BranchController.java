@@ -4,12 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import savvycom.productservice.domain.entity.Branch;
-import savvycom.productservice.domain.entity.product.Category;
-import savvycom.productservice.domain.entity.product.Inventory;
+import savvycom.productservice.domain.model.entity.Branch;
 import savvycom.productservice.service.IBranchService;
 
-import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/branch")

@@ -1,11 +1,12 @@
 package savvycom.productservice.repository.product;
 // @Repo access database, class click database.
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import savvycom.productservice.domain.entity.product.Product;
-import savvycom.productservice.domain.model.ProductOutput;
+import savvycom.productservice.domain.model.entity.product.Product;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -25,6 +26,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findProductByColor(String color);
 
+    Page<Product> findByProductLineIdIn(List<Long> productLineIds, Pageable pageable);
     List<Product> findProductBySize(String size);
 
 }

@@ -1,20 +1,26 @@
-package savvycom.productservice.domain.model;
+package savvycom.productservice.domain.model.entity.product;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import savvycom.productservice.domain.entity.Image;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
+import java.security.Timestamp;
 import java.sql.Date;
-import java.util.List;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class ProductOutput {
+@Data
+
+@Entity
+
+@Table(name="product")
+
+public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
 
     private String color;
@@ -22,16 +28,15 @@ public class ProductOutput {
     private String size;
 
     private Long productLineId;
-
+    
     private BigDecimal price;
 
     private Long discountId;
 
     private Long active;
 
-    private List<Image> images;
+    private Date createdAt;
 
-    private Date created_at;
+    private Date modifiedAt;
 
-    private Date modified_at;
 }

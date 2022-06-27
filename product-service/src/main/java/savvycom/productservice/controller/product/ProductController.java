@@ -1,24 +1,32 @@
 package savvycom.productservice.controller.product;
 
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import savvycom.productservice.controller.BaseController;
-import savvycom.productservice.domain.entity.Discount;
-import savvycom.productservice.domain.entity.product.Product;
-import savvycom.productservice.domain.entity.product.ProductLine;
-import savvycom.productservice.domain.model.ProductOutput;
+import savvycom.productservice.domain.model.dto.ProductResponse;
+import savvycom.productservice.domain.model.entity.Discount;
+import savvycom.productservice.domain.model.entity.product.Product;
+import savvycom.productservice.domain.model.entity.product.ProductLine;
+import savvycom.productservice.domain.model.dto.ProductOutput;
 import savvycom.productservice.service.IDiscountService;
 import savvycom.productservice.service.product.IProductLineService;
 import savvycom.productservice.service.product.IProductService;
+import savvycom.productservice.utils.AppConstants;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -31,65 +39,66 @@ public class ProductController extends BaseController {
 
     @Autowired
     private IDiscountService discountService;
+
     @Autowired
     public ProductController(IProductService ProductService) {
         this.productService = ProductService;
     }
 
-    //pos: create newproduct by admin
-
     @PostMapping()
+    @Operation(summary = "Create new product")
     public ResponseEntity<?> newProduct(@RequestBody Product product) {
         return successResponse(productService.save(product));
     }
-
-    //delete product from by admin
-
     @DeleteMapping("/delete/{id}")
+    @Operation(summary = "Delete product by admin")
     public void delete(@PathVariable Long id){
         productService.delete(id);
     }
 
-    //find id, price in product
-//    @GetMapping("/dto/{id}")
-//    public ResponseEntity<?> findProductDTOById(@PathVariable("id") Long id) {
-//        return successResponse(productService.findProductDTOById(id));
-//    }
-    // update product
     @PutMapping("{id}")
+    @Operation(summary = "Update product")
     public ResponseEntity<?> updateProduct(@RequestBody Product product) {
         return successResponse(productService.save(product));
     }
-
-    //find id by product
-    @GetMapping("/{id}")
-    public ResponseEntity<?> findProductOutputById(@PathVariable("id") Long id){
-        return successResponse(productService.findProductOutputById(id));
-    }
-    //find all product(all ProductImage)
-    @GetMapping("")
-    public ResponseEntity<?> findAll() {
-        return successResponse(productService.findAll());
-    }
-
-    //find id productline by product
-
     @GetMapping("/line/{id}")
+    @Operation(summary = "Find Product by ProductLine")
     public ResponseEntity<?> findProductByProductLine(@PathVariable("id") Long id) {
         return successResponse(productService.findProductByProductLine(id));
     }
 
+    @GetMapping("/{id}")
+    @Operation(summary = "Find ProductOutput By id")
+    public ResponseEntity<?> findProductOutputById(@PathVariable("id") Long id){
+        return successResponse(productService.findProductOutputById(id));
+    }
+    @GetMapping("")
+    @Operation(summary = "Find all product")
+    public ResponseEntity<?>  findAllProductResponse(
+    @RequestParam(value = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+    @RequestParam(value = "pageSize", defaultValue = AppConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize,
+    @RequestParam(value = "sortBy", defaultValue = AppConstants.DEFAULT_SORT_BY, required = false) String sortBy,
+    @RequestParam(value = "sortDir", defaultValue = AppConstants.DEFAULT_SORT_DIRECTION, required = false) String sortDir)
+    {
+        return successResponse(productService.findAllResponse(pageNo, pageSize, sortBy, sortDir));
+    }
+
     @GetMapping("/search")
-    public ResponseEntity<?> findByNameLike(@RequestParam String name) {
+    @Operation(summary = "Search name Product By ProductLine")
+    public ResponseEntity<?> findByNameLike(@RequestParam String name,
+                                            @RequestParam(value = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+                                            @RequestParam(value = "pageSize", defaultValue = AppConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize,
+                                            @RequestParam(value = "sortBy", defaultValue = AppConstants.DEFAULT_SORT_BY, required = false) String sortBy,
+                                            @RequestParam(value = "sortDir", defaultValue = AppConstants.DEFAULT_SORT_DIRECTION, required = false) String sortDir)
+    {
         name = "%" + name + "%";
         List<ProductLine> productLines = productLineService.findByNameLike(name);
-        List<ProductOutput> productOutputs = new ArrayList<>();
-        for(ProductLine productLine : productLines){
-            productOutputs.addAll(productService.findProductByProductLine(productLine.getId()));
-        }
-        return successResponse(productOutputs);
+        List<Long> productLineIds = productLines.stream().map(productLine -> productLine.getId()).collect(Collectors.toList());
+        ProductResponse productResponse = productService.findAllByProductLineIds(productLineIds, pageNo, pageSize, sortBy, sortDir);
+        return successResponse(productResponse);
     }
     @GetMapping("/search/1M")
+    @Operation(summary = "Search name Product By ProductLine")
     public ResponseEntity<?> findByPriceLess1M(@RequestParam BigDecimal q){
         List<Product> products = productService.findByPriceLess1M(q);
         List<ProductOutput> productOutputs = new ArrayList<>();

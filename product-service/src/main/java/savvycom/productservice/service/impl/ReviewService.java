@@ -2,7 +2,7 @@ package savvycom.productservice.service.impl;
 //@Service hold the business handling code in it
 
 import org.springframework.stereotype.Service;
-import savvycom.productservice.domain.entity.Review;
+import savvycom.productservice.domain.model.entity.Review;
 import savvycom.productservice.repository.ReviewRepository;
 import savvycom.productservice.service.IReviewService;
 

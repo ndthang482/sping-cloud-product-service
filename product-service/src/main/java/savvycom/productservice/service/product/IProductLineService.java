@@ -1,6 +1,9 @@
 package savvycom.productservice.service.product;
 
-import savvycom.productservice.domain.entity.product.ProductLine;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import savvycom.productservice.domain.model.entity.product.ProductLine;
 
 import java.util.List;
 

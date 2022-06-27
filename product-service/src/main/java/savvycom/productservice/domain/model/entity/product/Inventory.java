@@ -1,29 +1,31 @@
-package savvycom.productservice.domain.entity;
-
+package savvycom.productservice.domain.model.entity.product;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.sql.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+
 @Entity
-@Table(name="review")
-public class Review {
+@Table(name ="inventory")
+public class Inventory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
-    private Long userId;
+
+    private Long branchId;
 
     private Long productId;
 
-    private Long rate;
-
-    private String content;
+    private Long quantity;
 
     private Date createdAt;
 
     private Date modifiedAt;
+
 }

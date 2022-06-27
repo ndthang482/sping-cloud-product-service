@@ -4,10 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import savvycom.productservice.controller.BaseController;
-import savvycom.productservice.domain.entity.product.Category;
+import savvycom.productservice.domain.model.entity.product.Category;
 import savvycom.productservice.service.product.ICategoryService;
-
-import java.util.List;
 
 
 @RestController
